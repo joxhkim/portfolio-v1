@@ -37,5 +37,16 @@ document.addEventListener('DOMContentLoaded', () => {
     populateTechStack(technologiesArray);
     setupNavbarOpacity();
     setupMobileMenu();
+
+    document.addEventListener('click', function(event) {
+        const navLinks = document.querySelector('.nav-links');
+        const menuIcon = document.querySelector('.menu-icon');
+        const isClickInsideNav = navLinks.contains(event.target) || menuIcon.contains(event.target);
+        
+        if (!isClickInsideNav) {
+            navLinks.classList.remove('open');
+        }
+    });
 });
+
 
