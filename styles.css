@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 /* General styling */
 body {
     font-family: Arial, sans-serif;

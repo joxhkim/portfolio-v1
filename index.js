@@ -27,26 +27,41 @@ function setupNavbarOpacity() {
 function setupMobileMenu() {
     const menuIcon = document.querySelector('.menu-icon');
     const navLinks = document.querySelector('.nav-links');
+    
+    // Toggle the navLinks menu when menu icon is clicked
     menuIcon.addEventListener('click', function () {
         navLinks.classList.toggle('open');
     });
+
+    // Close the navLinks menu when clicked outside of it
+    document.addEventListener('click', function(event) {
+        const isClickInsideNav = navLinks.contains(event.target);
+        const isClickInsideMenuIcon = menuIcon.contains(event.target);
+        if (!isClickInsideNav && !isClickInsideMenuIcon) {
+            navLinks.classList.remove('open');
+        }
+    });
+
+    // Add event listener on the navLinks container to see if an href was clicked
+    navLinks.addEventListener('click', function (event) {
+        if (event.target.tagName === 'A') {
+            navLinks.classList.remove('open');
+            const href = event.target.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                const targetSection = document.querySelector(href);
+                if (targetSection) {
+                    targetSection.scrollIntoView();
+                }
+            }
+        }
+    });
 }
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
     populateTechStack(technologiesArray);
     setupNavbarOpacity();
     setupMobileMenu();
-
-    document.addEventListener('click', function(event) {
-        const navLinks = document.querySelector('.nav-links');
-        const menuIcon = document.querySelector('.menu-icon');
-        const isClickInsideNav = navLinks.contains(event.target) || menuIcon.contains(event.target);
-        
-        if (!isClickInsideNav) {
-            navLinks.classList.remove('open');
-        }
-    });
 });
-
 
